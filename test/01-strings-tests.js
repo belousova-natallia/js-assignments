@@ -72,14 +72,15 @@ describe('01-strings-tasks', function() {
     });
 
     it.optional('getRectangleString should return the string reprentation of rectangle with specified size', function() {
-        assert.equal(
+   assert.equal(
            '┌────┐\n'+
            '│    │\n'+
            '│    │\n'+
            '└────┘\n',
             tasks.getRectangleString(6, 4)
         );
-        assert.deepEqual(
+        
+                assert.deepEqual(
            '┌┐\n'+
            '└┘\n',
             tasks.getRectangleString(2, 2)

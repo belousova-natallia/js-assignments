@@ -22,7 +22,9 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+
+    return value1 + value2;
+    
 }
 
 
@@ -38,7 +40,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length;
 }
 
 /**
@@ -55,7 +57,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return `Hello, ${firstName} ${ lastName}!`;
 }
 
 /**
@@ -69,7 +71,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.slice(7, -1);
 }
 
 
@@ -84,7 +86,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0];
 }
 
 /**
@@ -99,7 +101,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -114,7 +116,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count);
 }
 
 /**
@@ -130,7 +132,12 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    let len = value.length;
+    let index = str.indexOf(value);
+    if(index !== -1){
+        return str.slice(0, index) + str.slice(index + len);
+    }
+
 }
 
 /**
@@ -145,7 +152,9 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    if(str[0] === '<' && str[str.length - 1] === '>'){
+        return str.slice(1, -1);
+    }
 }
 
 
@@ -160,7 +169,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase();
 }
 
 /**
@@ -174,12 +183,12 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(';');
 }
 
 /**
  * Returns the string representation of rectangle with specified width and height
- * using pseudograhic chars
+ * using pseudograhic chars  
  *
  * @param {number} width
  * @param {number} height
@@ -201,7 +210,11 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let result ='┌' + '─'.repeat(width-2) + '┐\n' + 
+    ('│' + ' '.repeat(width-2) + '│\n').repeat(height-2) +
+    '└' + '─'.repeat(width-2) + '┘\n';
+    return result;
+
 }
 
 
@@ -221,7 +234,11 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return str.replace( /[A-Za-z]/g, function(sym) {
+        if(sym < 'N' || (sym > 'Z' && sym < 'n' )) return String.fromCharCode(sym.charCodeAt() + 13);
+        else return String.fromCharCode(sym.charCodeAt() - 13);
+    });
+   
 }
 
 /**
@@ -238,7 +255,9 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    if(Object.prototype.toString.call(value) === "[object String]") return true;
+    return false;
+  
 }
 
 
@@ -267,10 +286,31 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let position;
+  
+    if(value[0] === "A") position = 0;
+    else if(value[0] === "J") position = 10;
+    else if(value[0] === "Q") position = 11;
+    else if(value[0] === "K") position = 12;
+    else {
+        position = Number(value.slice(0,-1)) - 1;
+    }
+ 
+  if(value.slice(-1) === '♦'){
+    position += 13;
+
+}
+if(value.slice(-1) === '♥'){
+    position += 26;
+
+}
+if(value.slice(-1) === '♠'){
+    position += 39;
+
 }
 
-
+return position;
+}
 module.exports = {
     concatenateStrings: concatenateStrings,
     getStringLength: getStringLength,
